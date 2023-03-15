@@ -1,0 +1,22 @@
+#jumbo {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-align: center;
+    color: rgb(71, 184, 255);
+    background-color: rgb(49, 49, 49);
+}
+#description {
+    font-size: large;
+}
+table,th,td,tr {
+    color: rgb(0, 0, 0);
+    border: 2px solid rgb(71, 184, 255);
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 30px;
+}
+#body{
+    background-color: rgb(245, 245, 245);
+}
+.col{
+    padding: 10px;
+}

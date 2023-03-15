@@ -1,0 +1,77 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\kylel\\OneDrive\\Desktop\\stuff\\321\\mis321pa3\\api\\API.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\kylel\\OneDrive\\Desktop\\stuff\\321\\mis321pa3\\api\\API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\kylel\\OneDrive\\Desktop\\stuff\\321\\mis321pa3\\api\\API.csproj",
+        "projectName": "API",
+        "projectPath": "C:\\Users\\kylel\\OneDrive\\Desktop\\stuff\\321\\mis321pa3\\api\\API.csproj",
+        "packagesPath": "C:\\Users\\kylel\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\kylel\\OneDrive\\Desktop\\stuff\\321\\mis321pa3\\api\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\kylel\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            },
+            "System.Data.SQLite.Core": {
+              "target": "Package",
+              "version": "[1.0.117, )"
+            },
+            "mysql.data": {
+              "target": "Package",
+              "version": "[8.0.32.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
