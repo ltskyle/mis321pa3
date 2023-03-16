@@ -4,12 +4,24 @@ let data
 let user
 let allSongs = []
 
+const create = function () {
+    fetch(url)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            createSong(data)
+        })
+}
+
 const getSongs = function () {
-    fetch(url).then(function (response) {
-        return response.json()
-    }).then(function(data) {
-        makeTable(data)
-    })
+    fetch(url)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            makeTable(data)
+        })
 }
 
 const favorite = function () {
@@ -35,30 +47,97 @@ const deleteOption = function () {
 getSongs()
 
 function handleOnLoad() {
+    create()
     favorite()
     deleteOption()
 }
 
-const createSong = async (event) => {
-    event.preventDefault()
-    const target = event.target
-    const song = {
-        title: target.songTitle.value,
-        artist: target.songArtist.value,
-        favorited: 'false',
-        deleted: 'false',
+const createSong = (json) => {
+    let addForm = document.getElementById('addSong')
+    let title
+    let artist
+    let song
+    let foundID
+    let finding
+    addForm.addEventListener('submit', async function (event) {
+        event.preventDefault()
+        title = event.target.elements.songTitle.value.toLowerCase()
+        artist = event.target.elements.songArtist.value.toLowerCase()
+        try {
+            let isFound = (finding = json.find(
+                (json) =>
+                    json.title.toLowerCase() == title &&
+                    json.artist.toLowerCase() == artist
+            ))
+            finding = json.find(
+                (json) =>
+                    json.title.toLowerCase() == title &&
+                    json.artist.toLowerCase() == artist
+            )
+            if (finding.deleted === 'true') {
+                foundID = {
+                    id: finding.songID,
+                    title: finding.title,
+                    artist: finding.artist,
+                    dateAdded: finding.dateAdded,
+                    favorited: 'false',
+                    deleted: 'false',
+                    numID: finding.numID,
+                }
+                let putID = finding.songID
+                await fetch(`${url}/${putID}`, {
+                    method: 'PUT',
+                    headers: {
+                        accept: '*/*',
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify(foundID),
+                })
+            }
+            if (isFound && finding.deleted != 'true') {
+                alert('Song already exists!')
+            }
+            location.reload()
+        } catch {
+        song = {
+            title: event.target.elements.songTitle.value,
+            artist: event.target.elements.songArtist.value,
+            favorited: 'false',
+            deleted: 'false',
+        }
+        await fetch(url, {
+            method: 'POST',
+            headers: {
+                accept: '*/*',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(song),
+        })
+        location.reload()
     }
-    await fetch(url, {
-        method: 'POST',
-        headers: {
-            accept: '*/*',
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(song),
     })
-    addRow(song)
-    location.reload()
 }
+
+// const createSong = async (event) => {
+//     event.preventDefault()
+//     const target = event.target
+//     const song = {
+//         title: target.songTitle.value,
+//         artist: target.songArtist.value,
+//         favorited: 'false',
+//         deleted: 'false',
+//     }
+//     await fetch(url, {
+//         method: 'POST',
+//         headers: {
+//             accept: '*/*',
+//             'Content-type': 'application/json',
+//         },
+//         body: JSON.stringify(song),
+//     })
+//     addRow(song)
+//     location.reload()
+// }
 
 function addRow(newSong) {
     let tableBody = document.getElementById('songTableBody')
@@ -120,7 +199,7 @@ const makeTable = (songs) => {
     th4.appendChild(document.createTextNode('Favorited'))
     tr.appendChild(th4)
     songs.forEach((s) => {
-        if (s.deleted != "true") {
+        if (s.deleted != 'true') {
             let tr = document.createElement('TR')
             tableBody.appendChild(tr)
 
@@ -221,24 +300,25 @@ const deleteSong = (json) => {
                     json.artist.toLowerCase() == artist
             )
             if (finding.deleted == 'false') {
-            foundID = {
-                id: finding.songID,
-                title: finding.title,
-                artist: finding.artist,
-                dateAdded: finding.dateAdded,
-                favorited: 'false',
-                deleted: 'true',
-                numID: finding.numID,
-            }
-            let putID = finding.songID
-            await fetch(`${url}/${putID}`, {
-                method: 'PUT',
-                headers: {
-                    accept: '*/*',
-                    'Content-type': 'application/json',
-                },
-                body: JSON.stringify(foundID),
-            })} else{
+                foundID = {
+                    id: finding.songID,
+                    title: finding.title,
+                    artist: finding.artist,
+                    dateAdded: finding.dateAdded,
+                    favorited: 'false',
+                    deleted: 'true',
+                    numID: finding.numID,
+                }
+                let putID = finding.songID
+                await fetch(`${url}/${putID}`, {
+                    method: 'PUT',
+                    headers: {
+                        accept: '*/*',
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify(foundID),
+                })
+            } else {
                 alert('Song does not exist!')
             }
         } catch {
