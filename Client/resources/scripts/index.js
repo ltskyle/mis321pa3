@@ -41,21 +41,21 @@ function handleOnLoad() {
 }
 
 const createSong = async (event) => {
-    event.preventDefault();
-    const target = event.target;
+    event.preventDefault()
+    const target = event.target
     const song = {
         title: target.songTitle.value,
         artist: target.songArtist.value,
-        favorited: "false",
-        deleted: "false",
+        favorited: 'false',
+        deleted: 'false',
     }
     await fetch(url, {
-        method: "POST",
+        method: 'POST',
         headers: {
-            accept: "*/*",
-            "Content-type": "application/json",
+            accept: '*/*',
+            'Content-type': 'application/json',
         },
-        body: JSON.stringify(song)
+        body: JSON.stringify(song),
     })
     addRow(song)
     location.reload()
@@ -220,6 +220,7 @@ const deleteSong = (json) => {
                     json.title.toLowerCase() == title &&
                     json.artist.toLowerCase() == artist
             )
+            if (finding.deleted == 'false') {
             foundID = {
                 id: finding.songID,
                 title: finding.title,
@@ -237,7 +238,9 @@ const deleteSong = (json) => {
                     'Content-type': 'application/json',
                 },
                 body: JSON.stringify(foundID),
-            })
+            })} else{
+                alert('Song does not exist!')
+            }
         } catch {
             alert('Song does not exist!')
         }

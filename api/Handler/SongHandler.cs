@@ -22,7 +22,6 @@ namespace api.Handler
         public List<Song> GetAllSongs()
         {
             AllSongs.Reverse();
-            System.Console.WriteLine(AllSongs);
             return AllSongs;
         }
 
@@ -30,11 +29,5 @@ namespace api.Handler
         {
             AllSongs.Insert(0, newSong);
         }
-
-        // public int Favorite(int id, Song favoriteSong){
-        //     int index = AllSongs.FindIndex(s => s.SongID==id);
-        //     return index;
-        // }
-
     }
 }
