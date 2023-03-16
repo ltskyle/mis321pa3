@@ -12,7 +12,6 @@ const getSongs = function () {
     })
 }
 
-
 const favorite = function () {
     fetch(url)
         .then(function (response) {
@@ -164,7 +163,8 @@ const favoriteSong = (json) => {
             finding = json.find(
                 (json) =>
                     json.title.toLowerCase() == title &&
-                    json.artist.toLowerCase() == artist
+                    json.artist.toLowerCase() == artist &&
+                    json.deleted == 'false'
             )
             if (finding.favorited == 'false') {
                 foundID = {
