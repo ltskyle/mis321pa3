@@ -5,6 +5,6 @@ namespace mis321pa3.interfaces
 {
     public interface IDeleteSong
     {
-         public void DeleteSong(int id);
+         public void DeleteSong(string id);
     }
 }

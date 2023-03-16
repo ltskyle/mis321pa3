@@ -17,7 +17,7 @@ namespace mis321pa3.database
             using var con = new MySqlConnection(cs);
             con.Open();
 
-            string stm = @"CREATE TABLE if not exists songs(id TEXT, title TEXT, artist TEXT, dateadded TEXT, favorited TEXT, deleted TEXT)";
+            string stm = @"CREATE TABLE if not exists songs(id TEXT, title TEXT, artist TEXT, dateadded TEXT, favorited TEXT, deleted TEXT, numID int auto_increment primary key)";
 
             using var cmd = new MySqlCommand(stm, con);
 
@@ -52,14 +52,14 @@ namespace mis321pa3.database
             string cs = myConnection.cs;
             using var con = new MySqlConnection(cs);
             con.Open();
-        
-            string stm = @"INSERT INTO songs(id, title, artist, dateadded, favorited, deleted) VALUES(@id, @title, @artist, @dateadded, @favorited, @deleted)";
+            string stm = @$"Update tsldq520l58kscm6.songs SET favorited=@Favorited, deleted=@Deleted WHERE numID =@numID";
 
             using var cmd = new MySqlCommand(stm, con);
         
-            cmd.CommandText = @"UPDATE songs set favorited = @favorited, deleted = @deleted WHERE id = @id";
+            cmd.Parameters.AddWithValue("@id",updateSong.SongID);
             cmd.Parameters.AddWithValue("@favorited",updateSong.Favorited);
             cmd.Parameters.AddWithValue("@deleted",updateSong.Deleted);
+            cmd.Parameters.AddWithValue("@numID",updateSong.numID);
             cmd.Prepare();
             cmd.ExecuteNonQuery();
         }

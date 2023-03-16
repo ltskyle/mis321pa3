@@ -19,30 +19,27 @@ namespace api.Controllers
     [ApiController]
     public class SongController : ControllerBase
     {
+        public static List<Song> AllSongs = new List<Song>();
         // GET: api/Song
         [HttpGet]
         public IEnumerable<Song> Get()
         {
-            // SongHandler mySongHandler = new SongHandler();
-            // var mySongs = mySongHandler.GetAllSongs();
-            // GetSongs getSongs = new GetSongs();
-            // var mySongs = getSongs.GetAllSongs();
-            List<Song> mySongs = new List<Song>();
             try{
                 IGetAllSongs readObject = new GetSongs();
-                mySongs = readObject.GetAllSongs();
-                string waste = mySongs[0].ToString();
+                AllSongs = readObject.GetAllSongs();
+                string waste = AllSongs[0].ToString();
             } catch {
-                mySongs = new List<Song>();
+                AllSongs = new List<Song>();
             }
-            return mySongs;
+            return AllSongs;
         }
 
         // GET: api/Song/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public Song Get(string id)
         {
-            return "value";
+            GetSongs readObject = new GetSongs();
+            return readObject.GetSong(id);
         }
 
         // POST: api/Song
@@ -54,21 +51,22 @@ namespace api.Controllers
             mySongHandler.AddSong(value);
             SaveSong.CreateSongTable();
             Song mySong = new Song(){SongID = value.SongID, Title = value.Title, Artist = value.Artist, DateAdded = value.DateAdded.ToString(), Favorited = value.Favorited, Deleted = value.Deleted};
-            System.Console.WriteLine(mySong);
             mySong.Save.CreateSong(value);
+            System.Console.WriteLine(value.MyToString());
         }
 
         // PUT: api/Song/5
         [HttpPut("{id}")] //UPDATE
-        public void Put(int id, [FromBody] Song updateSong)
+        public void Put(string id, [FromBody] Song value)
         {
             SaveSong mySaveSong = new SaveSong();
-            mySaveSong.UpdateSong(updateSong);
+            mySaveSong.UpdateSong(value);
+
         }
 
         // DELETE: api/Song/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
             System.Console.WriteLine("inside the delete");
             System.Console.WriteLine(id);

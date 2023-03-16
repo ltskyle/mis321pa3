@@ -22,7 +22,7 @@ namespace mysqlvids.database
 
             cmd.ExecuteNonQuery();
         }
-        void IDeleteSong.DeleteSong(int id)
+        void IDeleteSong.DeleteSong(string id)
         {
             throw new System.NotImplementedException();
         }

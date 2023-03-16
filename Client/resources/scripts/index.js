@@ -1,7 +1,8 @@
 const url = 'https://localhost:7095/api/Song'
 let app = document.getElementById('app')
 let data
-let mySongs = []
+let user
+let allSongs = []
 
 const getSongs = function () {
     fetch(url).then(function (response) {
@@ -11,34 +12,43 @@ const getSongs = function () {
     })
 }
 
+
+const favorite = function () {
+    fetch(url)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            favoriteSong(data)
+        })
+}
+
+const deleteOption = function () {
+    fetch(url)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            deleteSong(data)
+        })
+}
+
 getSongs()
 
-function handleOnLoad(mySongs) {
-    // addForm(mySongs)
-    // favoriteSong(mySongs)
-    // deleteSong(mySongs)
+function handleOnLoad() {
+    favorite()
+    deleteOption()
 }
 
 const createSong = async (event) => {
     event.preventDefault();
     const target = event.target;
-    let id = ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(
-                /[018]/g,
-                (c) =>
-                    (
-                        c ^
-                        (crypto.getRandomValues(new Uint8Array(1))[0] &
-                            (15 >> (c / 4)))
-                    ).toString(16))
     const song = {
-        songID: id,
         title: target.songTitle.value,
         artist: target.songArtist.value,
-        dateAdded: new Date().toLocaleDateString().slice(0, 10).toString(),
         favorited: "false",
         deleted: "false",
     }
-    console.log(JSON.stringify(song))
     await fetch(url, {
         method: "POST",
         headers: {
@@ -76,7 +86,7 @@ function addRow(newSong) {
     td4.appendChild(document.createTextNode(`${newSong.favorited}`))
     tr.appendChild(td4)
 
-    mySongs.unshift(newSong)
+    allSongs.unshift(newSong)
     location.reload()
 }
 
@@ -139,23 +149,98 @@ const makeTable = (songs) => {
     app.appendChild(table)
 }
 
-const favoriteSong = async (event) => {
-    event.preventDefault()
-    const target = event.target
-    const song = {
-        title: target.songTitle.value,
-        artist: target.songArtist.value,
-        favorited: 'true',
-    }
-    console.log(JSON.stringify(song))
-    await fetch(url, {
-        method: 'PUT',
-        headers: {
-            accept: '*/*',
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify(song),
+const favoriteSong = (json) => {
+    let favoriteForm = document.getElementById('favoriteSong')
+    let title
+    let artist
+    let foundID
+    let finding
+    favoriteForm.addEventListener('submit', async function (event) {
+        event.preventDefault()
+        title = event.target.elements.songTitle.value.toLowerCase()
+        artist = event.target.elements.songArtist.value.toLowerCase()
+
+        try {
+            finding = json.find(
+                (json) =>
+                    json.title.toLowerCase() == title &&
+                    json.artist.toLowerCase() == artist
+            )
+            if (finding.favorited == 'false') {
+                foundID = {
+                    id: finding.songID,
+                    title: finding.title,
+                    artist: finding.artist,
+                    dateAdded: finding.dateAdded,
+                    favorited: 'true',
+                    deleted: 'false',
+                    numID: finding.numID,
+                }
+            } else {
+                foundID = {
+                    id: finding.songID,
+                    title: finding.title,
+                    artist: finding.artist,
+                    dateAdded: finding.dateAdded,
+                    favorited: 'false',
+                    deleted: 'false',
+                    numID: finding.numID,
+                }
+            }
+            let putID = finding.songID
+            await fetch(`${url}/${putID}`, {
+                method: 'PUT',
+                headers: {
+                    accept: '*/*',
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(foundID),
+            })
+        } catch {
+            alert('Song does not exist!')
+        }
+        location.reload()
     })
-    addRow(song)
-    location.reload()
+}
+
+const deleteSong = (json) => {
+    let deleteForm = document.getElementById('deleteSong')
+    let title
+    let artist
+    let foundID
+    let finding
+    deleteForm.addEventListener('submit', async function (event) {
+        event.preventDefault()
+        title = event.target.elements.songTitle.value.toLowerCase()
+        artist = event.target.elements.songArtist.value.toLowerCase()
+
+        try {
+            finding = json.find(
+                (json) =>
+                    json.title.toLowerCase() == title &&
+                    json.artist.toLowerCase() == artist
+            )
+            foundID = {
+                id: finding.songID,
+                title: finding.title,
+                artist: finding.artist,
+                dateAdded: finding.dateAdded,
+                favorited: 'false',
+                deleted: 'true',
+                numID: finding.numID,
+            }
+            let putID = finding.songID
+            await fetch(`${url}/${putID}`, {
+                method: 'PUT',
+                headers: {
+                    accept: '*/*',
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(foundID),
+            })
+        } catch {
+            alert('Song does not exist!')
+        }
+        location.reload()
+    })
 }

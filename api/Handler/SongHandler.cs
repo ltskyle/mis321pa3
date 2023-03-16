@@ -16,7 +16,6 @@ namespace api.Handler
 
         public SongHandler()
         {
-            // AllSongs.Add(new Song(){SongID = 1, Title = "Mr. Brightside", Artist = "The Killers", DateAdded = "3/13/2023", Favorited = false, Deleted = false});
 
         }
 
@@ -30,20 +29,12 @@ namespace api.Handler
         public void AddSong(Song newSong)
         {
             AllSongs.Insert(0, newSong);
-            PrintAll();
         }
 
-        public void PrintAll()
-        {
-            foreach(Song song in AllSongs) {
-                System.Console.WriteLine(song.MyToString());
-            }
-        }
-
-        public void Favorite(string id, Song favoriteSong){
-            int index = AllSongs.FindIndex(s => s.SongID==id);
-            AllSongs[index].Favorited="true";
-        }
+        // public int Favorite(int id, Song favoriteSong){
+        //     int index = AllSongs.FindIndex(s => s.SongID==id);
+        //     return index;
+        // }
 
     }
 }
