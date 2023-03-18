@@ -52,11 +52,13 @@ namespace mis321pa3.database
             string cs = myConnection.cs;
             using var con = new MySqlConnection(cs);
             con.Open();
-            string stm = @$"Update tsldq520l58kscm6.songs SET favorited=@Favorited, deleted=@Deleted WHERE numID =@numID";
+            string stm = @$"Update tsldq520l58kscm6.songs SET favorited=@Favorited, deleted=@Deleted, title=@title, artist=@artist WHERE numID =@numID";
 
             using var cmd = new MySqlCommand(stm, con);
         
             cmd.Parameters.AddWithValue("@id",updateSong.SongID);
+            cmd.Parameters.AddWithValue("@title",updateSong.Title);
+            cmd.Parameters.AddWithValue("@artist",updateSong.Artist);
             cmd.Parameters.AddWithValue("@favorited",updateSong.Favorited);
             cmd.Parameters.AddWithValue("@deleted",updateSong.Deleted);
             cmd.Parameters.AddWithValue("@numID",updateSong.numID);

@@ -44,12 +44,23 @@ const deleteOption = function () {
         })
 }
 
+const editOption = function () {
+    fetch(url)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            editSong(data)
+        })
+}
+
 getSongs()
 
 function handleOnLoad() {
     create()
     favorite()
     deleteOption()
+    editOption()
 }
 
 const createSong = (json) => {
@@ -99,22 +110,22 @@ const createSong = (json) => {
             }
             location.reload()
         } catch {
-        song = {
-            title: event.target.elements.songTitle.value,
-            artist: event.target.elements.songArtist.value,
-            favorited: 'false',
-            deleted: 'false',
+            song = {
+                title: event.target.elements.songTitle.value,
+                artist: event.target.elements.songArtist.value,
+                favorited: 'false',
+                deleted: 'false',
+            }
+            await fetch(url, {
+                method: 'POST',
+                headers: {
+                    accept: '*/*',
+                    'Content-type': 'application/json',
+                },
+                body: JSON.stringify(song),
+            })
+            location.reload()
         }
-        await fetch(url, {
-            method: 'POST',
-            headers: {
-                accept: '*/*',
-                'Content-type': 'application/json',
-            },
-            body: JSON.stringify(song),
-        })
-        location.reload()
-    }
     })
 }
 
@@ -307,6 +318,56 @@ const deleteSong = (json) => {
                     dateAdded: finding.dateAdded,
                     favorited: 'false',
                     deleted: 'true',
+                    numID: finding.numID,
+                }
+                let putID = finding.songID
+                await fetch(`${url}/${putID}`, {
+                    method: 'PUT',
+                    headers: {
+                        accept: '*/*',
+                        'Content-type': 'application/json',
+                    },
+                    body: JSON.stringify(foundID),
+                })
+            } else {
+                alert('Song does not exist!')
+            }
+        } catch {
+            alert('Song does not exist!')
+        }
+        location.reload()
+    })
+}
+
+const editSong = (json) => {
+    let editForm = document.getElementById('editSong')
+    let currTitle
+    let currArtist
+    let newTitle
+    let newArtist
+    let foundID
+    let finding
+    editForm.addEventListener('submit', async function (event) {
+        event.preventDefault()
+        currTitle = event.target.elements.currSongTitle.value.toLowerCase()
+        currArtist = event.target.elements.currSongArtist.value.toLowerCase()
+        newTitle = event.target.elements.newSongTitle.value
+        newArtist = event.target.elements.newSongArtist.value
+
+        try {
+            finding = json.find(
+                (json) =>
+                    json.title.toLowerCase() == currTitle &&
+                    json.artist.toLowerCase() == currArtist
+            )
+            if (finding.deleted == 'false') {
+                foundID = {
+                    id: finding.songID,
+                    title: newTitle,
+                    artist: newArtist,
+                    dateAdded: finding.dateAdded,
+                    favorited: 'false',
+                    deleted: 'false',
                     numID: finding.numID,
                 }
                 let putID = finding.songID
