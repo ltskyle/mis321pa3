@@ -35,30 +35,6 @@
             >
                 Add Song
             </button>
-            <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#favoriteSong"
-            >
-                Favorite/Unfavorite Song
-            </button>
-            <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#deleteSong"
-            >
-                Delete Song
-            </button>
-            <button
-                type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#editSong"
-            >
-                Edit Song
-            </button>
         </div>
 
         <div id="app"></div>
@@ -75,132 +51,6 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addSongLabel">Add Song</h5>
-                        <button
-                            type="button"
-                            class="close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="songTitle">Song Title</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="songTitle"
-                                    placeholder="Enter Title"
-                                />
-                            </div>
-                            <br />
-                            <div class="form-group">
-                                <label for="songArtist">Artist</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="songArtist"
-                                    placeholder="Enter Artist"
-                                />
-                            </div>
-                            <br />
-                            <button type="submit" class="btn btn-primary">
-                                Submit
-                            </button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                        >
-                            Back
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Favorite Song Modal -->
-        <div
-            class="modal fade bg-black bg-opacity-50"
-            id="favoriteSong"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="favoriteSongLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="favoriteSongLabel">
-                            Favorite/Unfavorite Song
-                        </h5>
-                        <button
-                            type="button"
-                            class="close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="songTitle">Song Title</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="songTitle"
-                                    placeholder="Enter Title"
-                                />
-                            </div>
-                            <br />
-                            <div class="form-group">
-                                <label for="songArtist">Artist</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="songArtist"
-                                    placeholder="Enter Artist"
-                                />
-                            </div>
-                            <br />
-                            <button type="submit" class="btn btn-primary">
-                                Submit
-                            </button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                        >
-                            Back
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Delete Song Modal -->
-        <div
-            class="modal fade bg-black bg-opacity-50"
-            id="deleteSong"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="deleteSongLabel"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteSongLabel">
-                            Delete Song
-                        </h5>
                         <button
                             type="button"
                             class="close"
@@ -276,23 +126,14 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="currSongTitle">Current Song Title</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="currSongTitle"
-                                    placeholder="Enter Current Title"
-                                />
+                                <label for="currSongTitle">Current Song Title:</label>
+                                <br />
+                                <label id="currTitle" for="currSongTitle">Current Song Title:</label>
                             </div>
-                            <br />
                             <div class="form-group">
-                                <label for="currSongArtist">Current Artist</label>
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="currSongArtist"
-                                    placeholder="Enter Current Artist"
-                                />
+                                <label for="currSongArtist">Current Artist:</label>
+                                <br />
+                                <label id="currArtist" for="currSongArtist">Current Artist:</label>
                             </div>
                             <br />
                             <div class="form-group">
