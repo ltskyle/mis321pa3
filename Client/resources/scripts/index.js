@@ -43,35 +43,6 @@ const createSong = () => {
     })
 }
 
-function addRow(newSong) {
-    let tableBody = document.getElementById('songTableBody')
-    let tr = document.createElement('TR')
-    tableBody.appendChild(tr)
-
-    let td1 = document.createElement('TD')
-    td1.width = 250
-    td1.appendChild(document.createTextNode(`${newSong.title}`))
-    tr.appendChild(td1)
-
-    let td2 = document.createElement('TD')
-    td2.width = 250
-    td2.appendChild(document.createTextNode(`${newSong.artist}`))
-    tr.appendChild(td2)
-
-    let td3 = document.createElement('TD')
-    td3.width = 100
-    td3.appendChild(document.createTextNode(`${newSong.dateAdded}`))
-    tr.appendChild(td3)
-
-    let td4 = document.createElement('TD')
-    td4.width = 100
-    td4.appendChild(document.createTextNode(`${newSong.favorited}`))
-    tr.appendChild(td4)
-
-    allSongs.unshift(newSong)
-    location.reload()
-}
-
 const makeTable = (songs) => {
     let table = document.createElement('TABLE')
     table.border = '.5'
@@ -103,6 +74,11 @@ const makeTable = (songs) => {
     th4.appendChild(document.createTextNode('Favorited'))
     tr.appendChild(th4)
 
+    let th5 = document.createElement('TH')
+    th5.width = 215
+    th5.appendChild(document.createTextNode('Change'))
+    tr.appendChild(th5)
+
     songs.forEach((s) => {
         if (s.deleted != 'true') {
             let tr = document.createElement('TR')
@@ -129,7 +105,7 @@ const makeTable = (songs) => {
             tr.appendChild(td4)
 
             let ftbn = document.createElement('BUTTON')
-            ftbn.className = 'btn-primary'
+            ftbn.className = 'btn-info'
             ftbn.id = `${s.songID}`
             ftbn.style = 'margin: 5px'
             ftbn.onclick = () => {
@@ -140,7 +116,7 @@ const makeTable = (songs) => {
             tr.appendChild(ftbn)
 
             let dbtn = document.createElement('BUTTON')
-            dbtn.className = 'btn-primary'
+            dbtn.className = 'btn-info'
             dbtn.id = `${s.songID}`
             dbtn.style = 'margin: 5px'
             dbtn.onclick = () => {
@@ -151,7 +127,7 @@ const makeTable = (songs) => {
             tr.appendChild(dbtn)
 
             let ebtn = document.createElement('BUTTON')
-            ebtn.className = 'btn-primary'
+            ebtn.className = 'btn-info'
             ebtn.id = `${s.songID}`
             ebtn.style = 'margin: 5px'
             ebtn.onclick = () => {
@@ -224,7 +200,6 @@ async function deleteSong(ID) {
             deleted: 'true',
             numID: finding.numID,
         }
-        console.log(song)
         await fetch(newUrl, {
             method: 'PUT',
             headers: {

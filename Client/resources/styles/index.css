@@ -1,7 +1,7 @@
 #jumbo {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-align: center;
-    color: rgb(71, 184, 255);
+    color: #17a2b8;
     background-color: rgb(49, 49, 49);
 }
 #description {
@@ -9,13 +9,14 @@
 }
 table,th,td,tr {
     color: rgb(0, 0, 0);
-    border: 2px solid rgb(71, 184, 255);
+    border: 4px solid #17a2b8;
     margin-left:auto;
     margin-right:auto;
     margin-bottom: 30px;
+    border-style: groove;
 }
 #body{
-    background-color: rgb(245, 245, 245);
+    background-color: #f6f6f6;
 }
 .col{
     padding: 10px;
