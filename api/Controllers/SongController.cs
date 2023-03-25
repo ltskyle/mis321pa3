@@ -5,11 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using api.Models;
-using api.Handler;
 using mis321pa3.database;
 using mis321pa3.interfaces;
 using api.Controllers;
-using api.Handler;
 using api.Models;
 using System.Collections.Generic;
 
