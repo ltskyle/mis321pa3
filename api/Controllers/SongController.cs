@@ -46,9 +46,6 @@ namespace api.Controllers
         [HttpPost]
         public void Post([FromBody] Song value)
         {
-            SongHandler mySongHandler = new SongHandler();
-            SaveSong mySaveSong = new SaveSong();
-            mySongHandler.AddSong(value);
             SaveSong.CreateSongTable();
             Song mySong = new Song(){SongID = value.SongID, Title = value.Title, Artist = value.Artist, DateAdded = value.DateAdded.ToString(), Favorited = value.Favorited, Deleted = value.Deleted};
             mySong.Save.CreateSong(value);
