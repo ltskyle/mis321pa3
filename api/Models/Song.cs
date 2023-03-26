@@ -18,7 +18,8 @@ namespace api.Models
 
         public Song(){
             SongID = Guid.NewGuid().ToString();
-            DateAdded = DateTime.Now.ToString("M/d/yyyy");
+            DateTime currentTime = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
+            DateAdded = currentTime.ToString("M/d/yyyy");
             Save = new SaveSong();
         }
 
