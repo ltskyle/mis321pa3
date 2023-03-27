@@ -22,6 +22,8 @@ namespace mis321pa3.database
             using var cmd = new MySqlCommand(stm, con);
 
             cmd.ExecuteNonQuery();   
+
+            con.Close();
         }
 
         public void CreateSong(Song mySongs)
@@ -45,6 +47,8 @@ namespace mis321pa3.database
             cmd.Prepare();
 
             cmd.ExecuteNonQuery();
+
+            con.Close();
         }
 
         public void UpdateSong(Song updateSong){
@@ -63,7 +67,10 @@ namespace mis321pa3.database
             cmd.Parameters.AddWithValue("@deleted",updateSong.Deleted);
             cmd.Parameters.AddWithValue("@numID",updateSong.numID);
             cmd.Prepare();
+
             cmd.ExecuteNonQuery();
+
+            con.Close();
         }
         void ISaveSong.SaveSong(Song mySongs)
         {
