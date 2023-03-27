@@ -28,7 +28,6 @@ namespace mis321pa3.database
                 Song temp = new Song(){SongID=rdr.GetString(0), Title=rdr.GetString(1), Artist=rdr.GetString(2), DateAdded=rdr.GetString(3), Favorited=rdr.GetString(4), Deleted=rdr.GetString(5), numID=rdr.GetInt32(6)};
                 allSongs.Insert(0, temp);
             }
-            con.Close();
 
             return allSongs;
         }
@@ -45,7 +44,6 @@ namespace mis321pa3.database
             cmd.Prepare();
             using MySqlDataReader rdr = cmd.ExecuteReader();
             rdr.Read();
-            con.Close();
             return new Song(){SongID=rdr.GetString(0), Title=rdr.GetString(1), Artist=rdr.GetString(2), DateAdded=rdr.GetString(3), Favorited=rdr.GetString(4), Deleted=rdr.GetString(5), numID=rdr.GetInt32(6)};
         }
     }

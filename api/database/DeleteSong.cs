@@ -21,8 +21,6 @@ namespace mysqlvids.database
             using var cmd = new MySqlCommand(stm, con);
 
             cmd.ExecuteNonQuery();
-
-            con.Close();
         }
         void IDeleteSong.DeleteSong(string id)
         {
